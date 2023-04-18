@@ -3,6 +3,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import Page from './pages/Page';
+import Login from './pages/Login';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -26,9 +27,13 @@ import './theme/variables.css';
 setupIonicReact();
 
 const App: React.FC = () => {
+
+  const isAuth = false;
+
   return (
     <IonApp>
       <IonReactRouter>
+        {/*
         <IonSplitPane contentId="main">
           <Menu />
           <IonRouterOutlet id="main">
@@ -39,7 +44,17 @@ const App: React.FC = () => {
               <Page />
             </Route>
           </IonRouterOutlet>
-        </IonSplitPane>
+        </IonSplitPane>*/}
+
+        <Route path="/" exact={true} render={(props) => {
+          return isAuth ? <Redirect to="/home" /> : <Redirect to="/login" />;
+        }} />
+        <Route path="/login" exact={true}>
+          <Login />
+        </Route>
+        <Route path="/home" exact={true}>
+          <Page />
+        </Route>
       </IonReactRouter>
     </IonApp>
   );
